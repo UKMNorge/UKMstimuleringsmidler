@@ -1,0 +1,35 @@
+<div class="wrap" id="UKMWP_wrapper">
+	<div class="col-xs-12 col-md-8">
+		<!-- TABS -->
+		<h1>Rapport-inspirasjon for stimuleringsmidler</h1>
+		<p class="lead">Her finner du noen utvalgte rapporter som har mottatt støtte fra stimuleringsmidlene</p>
+	
+	
+		<div id="UKMWP_tabcontent">
+			<div id="content_nytt">
+				{% for post in news %}
+					<div class="col-xs-6 col-sm-4">
+						{% embed "news.html.twig" %}{% endembed %}
+					</div>
+					{% if loop.index is divisibleby(3) %}
+						<div class="clearfix visible-sm visible-md visible-lg"></div>
+					{% endif %}
+					{% if loop.index is divisibleby(2) %}
+						<div class="clearfix visible-xs"></div>
+					{% endif %}
+				{% endfor %}
+				
+				<div class="cleafix"></div>
+				{% if pagination_prev is defined %}
+					<a href="?page=UKMstimulering_idebank&pagination={{pagination_prev}}" class="btn btn-default pull-left">Nyere saker</a>
+				{% endif %}
+				
+				{% if pagination_next is defined %}
+					<a href="?page=UKMstimulering_idebank&pagination={{pagination_next}}" class="btn btn-default pull-right">Eldre saker</a>
+				{% endif %}
+				<div class="cleafix"></div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>

@@ -1,0 +1,10 @@
+<div class="clearfix"></div>
+<div class="col-xs-12 col-sm-5">
+	<h4 class="lead">Stimuleringsmidler-admin</h4>
+	<p>Følgende frister varsles i arrangør-systemet med gul boks 3 uker før fristen og rød boks 1 uke før fristen går ut:</p>
+	<ul class="list-group">
+		{% for frist in frister %}
+			<li class="list-group-item">{{ f[loop.index-1]['f'] }}</li>
+		{% endfor %}
+	</ul>
+</div>
