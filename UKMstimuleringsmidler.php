@@ -97,7 +97,7 @@ class UKMstimuleringsmidler extends UKMWPmodul {
 			'superadmin', 
 			'UKMsmadmin', 
 			['UKMstimuleringsmidler','renderNetworkAdmin'],
-			'//ico.ukm.no/cash-menu.png'
+			'dashicons-buddicons-friends' #'//ico.ukm.no/cash-menu.png'
 		);
 		add_action(
 			'admin_print_styles-' . $page, 
@@ -183,11 +183,10 @@ class UKMstimuleringsmidler extends UKMWPmodul {
 
 	public static function renderNetworkAdmin() {
 		$TWIGdata = array();
-		require_once('controller/network/smadmin.controller.php');
+		require_once('controller/network.controller.php');
 		$TWIGdata['frister'] = UKMstimulering_frister();
 		$TWIGdata['f'] = UKMsmadmin_page();
-		#var_dump($TWIGdata);
-		echo TWIG('network/smadmin.twig.html', $TWIGdata, dirname(__FILE__));
+		echo TWIG('network.html.twig', $TWIGdata, dirname(__FILE__));
 	}
 }
 
