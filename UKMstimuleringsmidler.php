@@ -8,9 +8,11 @@ Version: 1.0
 Author URI: http://mariusmandal.no
 */
 
-require_once('UKM/wp_modul.class.php');
+use UKMNorge\Wordpress\Modul;
 
-class UKMstimuleringsmidler extends UKMWPmodul {
+require_once('UKM/Autoloader.php');
+
+class UKMstimuleringsmidler extends Modul {
     public static $action = 'forside';
     public static $path_plugin = null;
 
@@ -21,8 +23,8 @@ class UKMstimuleringsmidler extends UKMWPmodul {
         add_action('user_admin_menu', ['UKMstimuleringsmidler','meny']);
 		add_action('network_admin_menu', ['UKMstimuleringsmidler','network_meny']);
 		
-		// Vis datoe for stimuleringsmidler
-		if (in_array(get_option('site_type'), ['kommune', 'fylke', 'land'])) {
+		// Vis dato for stimuleringsmidler
+		if (get_option('pl_id')) {
 			add_filter(
 				'UKMWPDASH_messages',
 				['UKMstimuleringsmidler','meldinger']
@@ -40,8 +42,8 @@ class UKMstimuleringsmidler extends UKMWPmodul {
 			'editor', 
 			'UKMstimulering', 
 			['UKMstimuleringsmidler','renderAdmin'],
-			'//ico.ukm.no/cash-menu.png',
-			5
+			'dashicons-awards',
+		    25
 		);
 		$subpage1 = add_submenu_page(
 			'UKMstimulering', 
