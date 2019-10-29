@@ -99,7 +99,7 @@ class UKMstimuleringsmidler extends Modul {
 			'superadmin', 
 			'UKMsmadmin', 
 			['UKMstimuleringsmidler','renderNetworkAdmin'],
-			'dashicons-buddicons-friends' #'//ico.ukm.no/cash-menu.png'
+			'dashicons-awards' #'//ico.ukm.no/cash-menu.png'
 		);
 		add_action(
 			'admin_print_styles-' . $page, 
