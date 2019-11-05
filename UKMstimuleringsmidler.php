@@ -49,7 +49,7 @@ class UKMstimuleringsmidler extends Modul {
 			'UKMstimulering', 
 			'Søknadsskjema', 
 			'Søknadsskjema', 
-			'read', 
+			'subscriber', 
 			'UKMstimulering_sok', 
 			['UKMstimuleringsmidler','renderSoknadsskjema']
 		);
@@ -57,7 +57,7 @@ class UKMstimuleringsmidler extends Modul {
 			'UKMstimulering', 
 			'Rapport', 
 			'Rapportskjema', 
-			'read', 
+			'subscriber', 
 			'UKMstimulering_rapport', 
 			['UKMstimuleringsmidler','renderRapportskjema']
 		);
@@ -65,7 +65,7 @@ class UKMstimuleringsmidler extends Modul {
 			'UKMstimulering', 
 			'Inspirasjon', 
 			'Inspirasjon', 
-			'editor', 
+			'subscriber', 
 			'UKMstimulering_idebank', 
 			['UKMstimuleringsmidler','renderIdebank']
 		);
