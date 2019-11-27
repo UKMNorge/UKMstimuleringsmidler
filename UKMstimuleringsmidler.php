@@ -43,7 +43,7 @@ class UKMstimuleringsmidler extends Modul {
 			'UKMstimulering', 
 			['UKMstimuleringsmidler','renderAdmin'],
 			'dashicons-awards',
-		    25
+		    50
 		);
 		$subpage1 = add_submenu_page(
 			'UKMstimulering', 
