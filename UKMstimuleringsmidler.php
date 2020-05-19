@@ -21,15 +21,17 @@ class UKMstimuleringsmidler extends Modul {
      */
     public static function hook() {
         add_action('user_admin_menu', ['UKMstimuleringsmidler','meny']);
-		add_action('network_admin_menu', ['UKMstimuleringsmidler','network_meny']);
 		
-		// Vis dato for stimuleringsmidler
+        /*
+		add_action('network_admin_menu', ['UKMstimuleringsmidler','network_meny']);
+        // Vis dato for stimuleringsmidler
 		if (get_option('pl_id')) {
 			add_filter(
 				'UKMWPDASH_messages',
 				['UKMstimuleringsmidler','meldinger']
 			);
-		}
+        }
+        */
 	}
 
 	/**
