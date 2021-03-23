@@ -9,6 +9,6 @@ if( isset( $_GET['subpage'] ) ) {
 }
 
 UKMstimuleringsmidler::addViewData(
-	'post', 
+	'page', 
 	getPage('stimuleringsmidler/' . $PAGE_SLUG)
 );
