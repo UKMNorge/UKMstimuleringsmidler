@@ -21,17 +21,6 @@ class UKMstimuleringsmidler extends Modul {
      */
     public static function hook() {
         add_action('user_admin_menu', ['UKMstimuleringsmidler','meny']);
-		
-        /*
-		add_action('network_admin_menu', ['UKMstimuleringsmidler','network_meny']);
-        // Vis dato for stimuleringsmidler
-		if (get_option('pl_id')) {
-			add_filter(
-				'UKMWPDASH_messages',
-				['UKMstimuleringsmidler','meldinger']
-			);
-        }
-        */
 	}
 
 	/**
@@ -47,46 +36,39 @@ class UKMstimuleringsmidler extends Modul {
 			'dashicons-awards',
 		    50
 		);
-		$subpage1 = add_submenu_page(
-			'UKMstimulering', 
-			'Søknadsskjema', 
-			'Søknadsskjema', 
-			'subscriber', 
-			'UKMstimulering_sok', 
-			['UKMstimuleringsmidler','renderSoknadsskjema']
-		);
-		$subpage2 = add_submenu_page(
-			'UKMstimulering', 
-			'Rapport', 
-			'Rapportskjema', 
-			'subscriber', 
-			'UKMstimulering_rapport', 
-			['UKMstimuleringsmidler','renderRapportskjema']
-		);
-		$subpage3 = add_submenu_page(
-			'UKMstimulering', 
-			'Inspirasjon', 
-			'Inspirasjon', 
-			'subscriber', 
-			'UKMstimulering_idebank', 
-			['UKMstimuleringsmidler','renderIdebank']
-		);
-		add_action(
-			'admin_print_styles-' . $page,
-			['UKMstimuleringsmidler','scripts_and_styles']
-		);
-		add_action(
-			'admin_print_styles-' . $subpage1,
-			['UKMstimuleringsmidler','scripts_and_styles']
-		);
-		add_action(
-			'admin_print_styles-' . $subpage2,
-			['UKMstimuleringsmidler','scripts_and_styles']
-		);
-		add_action(
-			'admin_print_styles-' . $subpage3,
-			['UKMstimuleringsmidler','scripts_and_styles']
-		);
+
+		# Bytt til arrangor
+		switch_to_blog( UKM_HOSTNAME == 'ukm.dev' ? 13 : 881 );
+		
+		# Hent alle sider
+		$parent_page = get_page_by_path( 'stimuleringsmidler' );
+		# Hent alle sider
+		$my_wp_query = new WP_Query();
+		$children_pages = $my_wp_query->query( array('post_parent' => $parent_page->ID, 'post_type'=>'page', 'posts_per_page' => 100, 'orderby' => 'menu_order', 'order' => 'ASC') );
+
+		# Restore til aktiv side
+		### OBS - MÅ GJØRES FØR LOOPEN FOR Å KUNNE LEGGE TIL SIDER (ingen av brukerne har editor på arrangørbloggen!)
+		restore_current_blog();
+
+		# Legg til menyelementer og enqueue scripts + styles
+		foreach( $children_pages as $child ) {
+			$subpage = add_submenu_page(
+				'UKMstimulering', 
+				$child->post_title, $child->post_title, 
+				'subscriber', //Deffinerer hva slags brukerrettigheter brukeren måtte ha for å vise menyvalg "Verktøykasse"
+				'UKMstimulering_'.$child->post_name, 
+				[static::class, 'renderSubpage']
+			);
+			// add_action( 'admin_print_styles-' . $subpage, 'UKMide_scripts_and_styles' );	
+
+			add_action('admin_print_styles-' . $subpage, ['UKMstimuleringsmidler','scripts_and_styles']);
+		}
+	}
+
+	function renderSubpage() {
+		static::setAction('pagecontainer');
+		// echo TWIG($VIEW. '.twig.html', $TWIGdata, dirname(__FILE__));
+		return static::renderAdmin();
 	}
 
 	/**
@@ -107,7 +89,6 @@ class UKMstimuleringsmidler extends Modul {
 			'admin_print_styles-' . $page, 
 			['UKMstimuleringsmidler','scripts_and_styles']
 		);
-	
 	}
 
 	/**
@@ -153,37 +134,6 @@ class UKMstimuleringsmidler extends Modul {
 	
 		return $MESSAGES;
 	}
-
-	/**
-	 * Vis side med søknadsskjema
-	 *
-	 * @return void
-	 */
-	public static function renderSoknadsskjema() {
-		static::setAction('soknadsskjema');
-		static::renderAdmin();
-	}
-	
-	/**
-	 * Vis side med rapportskjema
-	 *
-	 * @return void
-	 */
-	public static function renderRapportskjema() {
-		static::setAction('rapportskjema');
-		static::renderAdmin();
-	}
-	
-	/**
-	 * Vis idébank-siden
-	 *
-	 * @return void
-	 */
-	public static function renderIdebank() {
-		static::setAction('idebank');
-		static::renderAdmin();
-	}
-
 
 	public static function renderNetworkAdmin() {
 		$TWIGdata = array();
