@@ -54,7 +54,8 @@ class UKMstimuleringsmidler extends Modul {
 		foreach( $children_pages as $child ) {
 			$subpage = add_submenu_page(
 				'UKMstimulering', 
-				$child->post_title, $child->post_title, 
+				$child->post_title,
+				$child->post_title, 
 				'subscriber', //Deffinerer hva slags brukerrettigheter brukeren måtte ha for å vise menyvalg "Verktøykasse"
 				'UKMstimulering_'.$child->post_name, 
 				[static::class, 'renderSubpage']
