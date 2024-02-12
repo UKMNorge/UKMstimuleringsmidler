@@ -66,7 +66,7 @@ class UKMstimuleringsmidler extends Modul {
 		}
 	}
 
-	function renderSubpage() {
+	static function renderSubpage() {
 		static::setAction('pagecontainer');
 		// echo TWIG($VIEW. '.twig.html', $TWIGdata, dirname(__FILE__));
 		return static::renderAdmin();
